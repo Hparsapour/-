@@ -31,7 +31,7 @@ import numpy as np
 import random
 
 text = open(&quothafez.txt&quot, &quotr&quot, encoding=&quotutf-8&quot).read()
-پردازش متن و ایجاد دیتاست
+# -<div dir=”rtl”>پردازش متن و ایجاد دیتاست
 شبکه عصبی نمیتواند داده ها به صورت متنی دریافت کند، برای همین باید کارکتر ها را به اعداد صحیح تبدیل کنیم :
 
 1
@@ -41,6 +41,7 @@ chars = sorted(list(set(text)))
 char_indices = dict((c, i) for i, c in enumerate(chars))
 indices_char = dict((i, c) for i, c in enumerate(chars))
 برای تولید متن مدل با دیدن کارکتر های قبل یاد میگیرد که کارکتر بعدی کدام است :
+![image](https://user-images.githubusercontent.com/119537395/205359512-16ea49cf-00f9-42b8-9971-25f27cb858ce.png)
 
 
 پس با توجه به تصویر بالا، input ها یک ایندکس از آخر عقب تر از target ها هستند و target ها نیز یک ایندکس از اول جلوتر از input ها هستند، پس به این شیوه متغییر های x و y رو میسازیم:
@@ -72,7 +73,7 @@ for i, sentence in enumerate(sentences):
     for t, char in enumerate(sentence):
         x[i, t, char_indices[char]] = 1
     y[i, char_indices[next_chars[i]]] = 1
-مدل سازی
+# -<div dir=”rtl”>مدل سازی
 حالا میتوانیم مدل LSTM خود را تعریف کنیم. در اینجا از یک لایه LSTM با 128 واحد حافظه به عنوان حافظه پنهان و لایه خروجی یک Dense layer هست که از تابع softmax استفاده میکند، برای بهینه ساز هم از Adam استفاده میکنیم :-<div dir=”rtl”>
 1
 2
@@ -121,7 +122,8 @@ epochs = 40
 batch_size = 128
 
 model.fit(x, y, batch_size=batch_size, epochs=40)
-آموزش مدل روی NVIDIA Tesla K50 حدود دو دقیقه طول کشید. حالا میتوانیم مدل را تست کنیم :
+آموزش مدل روی
+NVIDIA Tesla K50 حدود دو دقیقه طول کشید. حالا میتوانیم مدل را تست کنیم :
 
 1
 2
@@ -171,11 +173,12 @@ for i in range(10):
         print(&quot...Generated: &quot, generated)
         print()
 با اجرای کد، ده متن با diversity های مختلف تولید میشود :
+![image](https://user-images.githubusercontent.com/119537395/205359578-2b1d28dd-4657-4fde-a3c1-26df1d0a181a.png)
 
 
 متن ورودی به صورت تصادفی از خود متن اصلی انتخاب میشود اما شما میتوانید متن خود را به مدل بدهید.
 
-بررسی اشعار تولید شده
+# -<div dir=”rtl”>بررسی اشعار تولید شده
 به خاک نشینی که بر سر خود از در آن چه اند
 گر چه ما به دست است و دل بر این خواهد شد
 ما نگه از دوست ما به در میان بود
@@ -186,7 +189,7 @@ for i in range(10):
 تو به پیش کام دل ما نازک سخن بده
 از لب گل صفیه و دارد سحر پرده کنم
 حافظ ار خاطر و خال ما و ز بر بخت نیک
-بهبود مدل
+# -<div dir=”rtl”>بهبود مدل
 برای بهبود نتایج مدل چند کار میشه انجام داد :
 
 استفاده از مدل پیچیده تر(در اینجا ما فقط از یک لایه LSTM آنهم با 128 واحد حافظه استفاده کرده ایم، استفاده از LSTM های بیشتر و لایه Dropout نتیجه را بهبود میبخشد).
